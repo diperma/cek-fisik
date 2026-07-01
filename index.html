@@ -275,17 +275,11 @@
       </div>
     </div>
 
-    <!-- ===== PERUBAHAN SPEK ===== -->
+    <!-- ===== CATATAN LAPANGAN ===== -->
     <div class="step-section" id="step-3">
-      <h2>Perubahan Spek</h2>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Catat setiap perubahan spek yang signifikan dari rencana awal. Opsional — boleh dikosongkan jika tidak ada perubahan.</p>
-      <div id="spek-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
-        <div id="wrap_spek_poin_1" style="display:flex;gap:6px;align-items:center">
-          <input type="text" id="spek_poin_1" placeholder="cth: harusnya keramik tapi hanya diplester saja" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:0.95em">
-          <button type="button" onclick="removeSpekPoin('wrap_spek_poin_1')" style="background:none;border:none;color:#c0392b;font-size:1.3em;cursor:pointer;padding:0 4px;line-height:1" title="Hapus">&times;</button>
-        </div>
-      </div>
-      <button type="button" onclick="addSpekPoin()" style="background:none;border:1px dashed var(--hijau);color:var(--hijau);padding:7px 16px;border-radius:6px;cursor:pointer;font-size:0.93em;width:100%">&#xFF0B; Tambah Poin</button>
+      <h2>Catatan Lapangan</h2>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Uraikan hal-hal yang belum atau tidak dapat dicatat di bagian sebelumnya</p>
+      <textarea id="f_catatan_lapangan" placeholder="Tuliskan catatan, temuan lapangan, atau hal lain yang relevan..." style="min-height:180px"></textarea>
       <div class="btn-row" style="margin-top:20px">
         <button class="btn btn-back" onclick="prevStep()">&larr; Kembali</button>
         <button class="btn btn-next" onclick="nextStep()">Lanjut &rarr;</button>
@@ -295,17 +289,6 @@
     <!-- ===== PENUTUP ===== -->
     <div class="step-section" id="step-4">
       <h2>Penutup &mdash; Dokumentasi &amp; Unduh</h2>
-      <div class="form-grid">
-        <div class="form-group full-width">
-          <label>Link Foto / Video (Google Drive)</label>
-          <input type="url" id="f_link_foto" placeholder="https://drive.google.com/...">
-          <small style="color:#888;font-size:12px;margin-top:2px">Pastikan link dapat diakses oleh siapapun (akses publik).</small>
-        </div>
-        <div class="form-group full-width">
-          <label>Catatan Tambahan</label>
-          <textarea id="f_catatan" placeholder="Catatan atau informasi tambahan lainnya (opsional)"></textarea>
-        </div>
-      </div>
 
       <div class="summary-section" id="summary-wrapper" style="margin-top:24px">
         <h3>Ringkasan Data Cek Fisik</h3>
@@ -335,7 +318,7 @@
     }
   </script>
   <script>
-    const STEPS = ['Identitas','Kondisi Fisik','Perubahan Spek','Penutup'];
+    const STEPS = ['Identitas','Kondisi Fisik','Catatan Lapangan','Penutup'];
     let currentStep = 1;
 
     function renderProgressBar() {
@@ -363,26 +346,6 @@
     function nextStep() { if (!validateCurrentStep()) return; if (currentStep < 4) showStep(currentStep + 1); }
     function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
 
-    let spekCounter = 1;
-    function addSpekPoin() {
-      spekCounter++;
-      const id = 'spek_poin_' + spekCounter;
-      const wid = 'wrap_' + id;
-      const div = document.createElement('div');
-      div.id = wid;
-      div.style.cssText = 'display:flex;gap:6px;align-items:center';
-      div.innerHTML = `<input type="text" id="${id}" placeholder="cth: harusnya keramik tapi hanya diplester saja" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:0.95em"><button type="button" onclick="removeSpekPoin('${wid}')" style="background:none;border:none;color:#c0392b;font-size:1.3em;cursor:pointer;padding:0 4px;line-height:1" title="Hapus">&times;</button>`;
-      document.getElementById('spek-list').appendChild(div);
-      document.getElementById(id).focus();
-    }
-    function removeSpekPoin(wid) {
-      const el = document.getElementById(wid);
-      if (el) el.remove();
-    }
-    function collectSpek() {
-      return Array.from(document.querySelectorAll('#spek-list input[type="text"]'))
-        .map(i => i.value.trim()).filter(Boolean);
-    }
 
     function validateCurrentStep() {
       const section = document.getElementById('step-' + currentStep);
@@ -589,9 +552,7 @@
           KELENGKAPAN_ITEMS.flatMap(({items}) => items).map(({id}) => [`Klg_${id}_Jumlah`, val(`klg_${id}`)])
         ),
         ...Object.fromEntries(KENDARAAN_ITEMS.map(({id}) => [`Knd_${id}_Jumlah`, val(`knd_${id}`)])),
-        'Perubahan_Spek': collectSpek().join(' | ') || '-',
-        'Link_Foto_Video': val('f_link_foto'),
-        'Catatan': val('f_catatan'),
+        'Catatan_Lapangan': val('f_catatan_lapangan'),
       };
     }
 
@@ -621,12 +582,8 @@
           const jumlah = d[`Knd_${id}_Jumlah`];
           return [label, jumlah ? jumlah : '-'];
         })},
-        { title: 'Perubahan Spek', fields: [
-          ['Poin Perubahan', d['Perubahan_Spek']||'-'],
-        ]},
-        { title: 'Dokumentasi', fields: [
-          ['Link Foto/Video', d['Link_Foto_Video']||'-'],
-          ['Catatan', d['Catatan']||'-'],
+        { title: 'Catatan Lapangan', fields: [
+          ['Catatan', d['Catatan_Lapangan']||'-'],
         ]},
       ];
       document.getElementById('summary-content').innerHTML = groups.map(g => `
