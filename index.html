@@ -595,11 +595,9 @@
         'Fisik_Atap': document.querySelector('input[name="fis_atap"]:checked')?.value || '',
         'Fisik_Pintu': document.querySelector('input[name="fis_pintu"]:checked')?.value || '',
         'Fisik_Jendela': document.querySelector('input[name="fis_jendela"]:checked')?.value || '',
-        ...Object.fromEntries(KELENGKAPAN_ITEMS.flatMap(({id}) => {
-          const kb = document.querySelector(`input[name="klg_${id}"]:checked`)?.value || '';
-          const fn = document.querySelector(`input[name="klg_fungsi_${id}"]:checked`)?.value || '';
-          return [[`Klg_${id}_Keberadaan`, kb], [`Klg_${id}_Fungsi`, fn]];
-        })),
+        ...Object.fromEntries(
+          KELENGKAPAN_ITEMS.flatMap(({items}) => items).map(({id}) => [`Klg_${id}_Jumlah`, val(`klg_${id}`)])
+        ),
         ...Object.fromEntries(KENDARAAN_ITEMS.flatMap(({id}) => {
           const kb = document.querySelector(`input[name="knd_${id}"]:checked`)?.value || '';
           const km = document.getElementById(`knd_${id}_km`)?.value || '';
@@ -629,10 +627,9 @@
           ['Dinding', d['Fisik_Dinding']||'-'], ['Atap', d['Fisik_Atap']||'-'],
           ['Pintu', d['Fisik_Pintu']||'-'], ['Jendela / Kaca', d['Fisik_Jendela']||'-'],
         ]},
-        { title: 'Kelengkapan', fields: KELENGKAPAN_ITEMS.map(({id, label}) => {
-          const kb = d[`Klg_${id}_Keberadaan`]==='Y'?'Ada':d[`Klg_${id}_Keberadaan`]==='T'?'Tidak ada':'-';
-          const fn = d[`Klg_${id}_Fungsi`]==='Y'?', berfungsi':d[`Klg_${id}_Fungsi`]==='T'?', tidak berfungsi':'';
-          return [label, kb+fn];
+        { title: 'Kelengkapan', fields: KELENGKAPAN_ITEMS.flatMap(({items}) => items).map(({id, label}) => {
+          const jumlah = d[`Klg_${id}_Jumlah`];
+          return [label, jumlah ? jumlah : '-'];
         })},
         { title: 'Kendaraan', fields: KENDARAAN_ITEMS.map(({id, label}) => {
           const kb = d[`Knd_${id}_Keberadaan`]==='Y'?'Ada':d[`Knd_${id}_Keberadaan`]==='T'?'Tidak ada':'-';
