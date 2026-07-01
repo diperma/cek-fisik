@@ -606,7 +606,11 @@
     function downloadXLSX() {
       loadXLSX(() => {
         const d = collectData();
-        const rows = Object.entries(d).map(([k,v]) => ({Kolom: k, Nilai: v}));
+        const groups = buildLabeledRows(d);
+        const rows = groups.flatMap(g => [
+          { Kolom: `— ${g.title} —`, Nilai: '' },
+          ...g.fields.map(([label, value]) => ({ Kolom: label, Nilai: value })),
+        ]);
         const ws = XLSX.utils.json_to_sheet(rows);
         ws['!cols'] = [{wch:35},{wch:60}];
         const wb = XLSX.utils.book_new();
