@@ -972,6 +972,12 @@
       document.getElementById('f_nama_kdkmp').value =
         `KOPERASI ${jenis} MERAH PUTIH ${desa.toUpperCase()} KECAMATAN ${kec.toUpperCase()}`;
       document.getElementById('f_no').value = DESA_NO_MAP[key] || '';
+
+      const alamatEl = document.getElementById('f_alamat');
+      const labelDesa = jenis === 'KELURAHAN' ? 'Kelurahan' : 'Desa';
+      if (alamatEl) {
+        alamatEl.value = `${labelDesa} ${desa}, Kecamatan ${kec}, ${kab}`;
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
