@@ -556,9 +556,8 @@
       };
     }
 
-    function renderSummary() {
-      const d = collectData();
-      const groups = [
+    function buildLabeledRows(d) {
+      return [
         { title: 'Identitas', fields: [
           ['No / Kode', d['No']||'-'], ['Tanggal Kunjungan', d['Tanggal Kunjungan']||'-'],
           ['Provinsi', d['Provinsi']||'-'], ['Kabupaten/Kota', d['Kabupaten/Kota']||'-'],
@@ -570,6 +569,9 @@
         ]},
         { title: 'Dimensi Bangunan', fields: [
           ['Bangunan (P\xd7L)', d['Fisik_Panjang']&&d['Fisik_Lebar'] ? `${d['Fisik_Panjang']} m \xd7 ${d['Fisik_Lebar']} m = ${d['Fisik_Luas']} m\xb2` : '-'],
+          ['Selisih Panjang', d['Fisik_Selisih_Panjang']||'-'],
+          ['Selisih Lebar', d['Fisik_Selisih_Lebar']||'-'],
+          ['Selisih Luas', d['Fisik_Selisih_Luas']||'-'],
           ['Lantai Keramik', d['Fisik_LantaiKeramik']||'-'], ['Lantai Gudang', d['Fisik_LantaiGudang']||'-'],
           ['Dinding', d['Fisik_Dinding']||'-'], ['Atap', d['Fisik_Atap']||'-'],
           ['Pintu', d['Fisik_Pintu']||'-'], ['Jendela / Kaca', d['Fisik_Jendela']||'-'],
@@ -586,6 +588,10 @@
           ['Catatan', d['Catatan_Lapangan']||'-'],
         ]},
       ];
+    }
+
+    function renderSummary() {
+      const groups = buildLabeledRows(collectData());
       document.getElementById('summary-content').innerHTML = groups.map(g => `
         <div class="summary-group">
           <div class="summary-group-title">${g.title}</div>
