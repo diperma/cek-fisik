@@ -150,6 +150,18 @@
           <label>Nama KDKMP <span class="req">*</span></label>
           <input type="text" id="f_nama_kdkmp" required placeholder="Nama koperasi">
         </div>
+        <div class="form-group">
+          <label>Nama Pewawancara <span class="req">*</span></label>
+          <input type="text" id="f_nama_pewawancara" required placeholder="Nama lengkap pewawancara">
+        </div>
+        <div class="form-group">
+          <label>Nama Responden <span class="req">*</span></label>
+          <input type="text" id="f_nama_responden" required placeholder="Nama lengkap responden">
+        </div>
+        <div class="form-group">
+          <label>Nomor HP Responden <span class="req">*</span></label>
+          <input type="text" id="f_hp_responden" required placeholder="Contoh: 081234567890">
+        </div>
       </div>
       <div class="btn-row">
         <span></span>
@@ -682,6 +694,9 @@
         'Kecamatan': val('f_kecamatan'),
         'Kelurahan/Desa': val('f_keldesa'),
         'Nama KDKMP': val('f_nama_kdkmp'),
+        'Nama Pewawancara': val('f_nama_pewawancara'),
+        'Nama Responden': val('f_nama_responden'),
+        'Nomor HP Responden': val('f_hp_responden'),
         'Alamat': val('f_alamat'),
         'Geotagging': val('f_geo'),
         'Jarak_Pemukiman_km': val('f_jarak_pemukiman'),
@@ -749,6 +764,9 @@
           ['Provinsi', d['Provinsi']||'-'], ['Kabupaten/Kota', d['Kabupaten/Kota']||'-'],
           ['Kecamatan', d['Kecamatan']||'-'], ['Kelurahan/Desa', d['Kelurahan/Desa']||'-'],
           ['Nama KDKMP', d['Nama KDKMP']||'-'],
+          ['Nama Pewawancara', d['Nama Pewawancara']||'-'],
+          ['Nama Responden', d['Nama Responden']||'-'],
+          ['Nomor HP Responden', d['Nomor HP Responden']||'-'],
         ]},
         { title: 'Lokasi', fields: [
           ['Alamat', d['Alamat']||'-'], ['Geotagging', d['Geotagging']||'-'],
