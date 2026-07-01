@@ -246,13 +246,12 @@
       </div>
 
       <h3 style="color:var(--hijau);margin:0 0 6px">c. Kelengkapan Peralatan &amp; Fasilitas</h3>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Centang fungsi dan keberadaan setiap item berdasarkan hasil observasi visual.</p>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Isi jumlah aktual tiap item berdasarkan hasil observasi fisik.</p>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table" id="tbl-kelengkapan">
           <thead><tr>
-            <th style="width:36px">No</th><th>Kelengkapan</th>
-            <th style="width:130px;text-align:center">Fungsi</th>
-            <th style="width:130px;text-align:center">Keberadaan</th>
+            <th style="width:36px">No</th><th style="width:220px">Kategori</th>
+            <th>Uraian</th>
             <th style="width:110px;text-align:center">Jumlah</th>
           </tr></thead>
           <tbody id="kelengkapan-body"></tbody>
@@ -400,19 +399,101 @@
     }
 
     const KELENGKAPAN_ITEMS = [
-      {id:'rak_display', label:'Rak display',                       jumlah:'1 set'},
-      {id:'furniture',   label:'Furniture atau meubel',             jumlah:'1 set'},
-      {id:'kasir_hw',    label:'Perangkat keras kasir',             jumlah:'1 set'},
-      {id:'kasir_sw',    label:'Perangkat lunak (software) kasir',  jumlah:'1 set'},
-      {id:'internet',    label:'Internet (LTE 4G / Satelit)',       jumlah:'1 set'},
-      {id:'ac',          label:'Air conditioner',                   jumlah:'3 Pcs 2PK, 2 Pcs 1PK'},
-      {id:'apar',        label:'Alat pemadam api ringan (APAR)',    jumlah:'2 pcs'},
-      {id:'cctv',        label:'CCTV',                              jumlah:'1 set'},
-      {id:'brankas',     label:'Brankas',                           jumlah:''},
-      {id:'keranjang',   label:'Keranjang Belanja',                 jumlah:'1 set'},
-      {id:'pallet',      label:'Pallet',                            jumlah:'1 set'},
-      {id:'printer',     label:'Printer',                           jumlah:'1 Pcs'},
-      {id:'seragam',     label:'Seragam Pegawai',                   jumlah:'1 Set'},
+      { category: 'Mesin Kasir', items: [
+          {id:'pos', label:'POS (Point of Sales)'},
+          {id:'wifi_router', label:'WiFi Router/Modem'},
+          {id:'ups', label:'UPS'},
+      ]},
+      { category: 'CCTV', items: [
+          {id:'cctv_kamera', label:'Kamera CCTV (8 unit)'},
+          {id:'cctv_hdd', label:'HDD 2 TB'},
+          {id:'cctv_led', label:'LED Display 19 Inch'},
+      ]},
+      { category: 'Internet', items: [
+          {id:'internet', label:'Internet'},
+      ]},
+      { category: 'Software Kasir', items: [
+          {id:'software_kasir', label:'Software Kasir'},
+      ]},
+      { category: 'Air Conditioner', items: [
+          {id:'ac_2pk', label:'AC 2 PK'},
+          {id:'ac_1pk', label:'AC 1 PK'},
+      ]},
+      { category: 'Furniture, Gerai, Apotek dan Klinik', items: [
+          {id:'furniture_meja_koperasi', label:'Meja Koperasi Simpan Pinjam'},
+          {id:'furniture_laci_gerai', label:'Laci Dorong (Gerai)'},
+          {id:'furniture_rak_etalase', label:'Rak Etalase'},
+          {id:'furniture_meja_kasir', label:'Meja Kasir'},
+          {id:'furniture_lemari_apotek', label:'Lemari Display Apotek'},
+          {id:'furniture_meja_administrasi', label:'Meja Administrasi Klinik'},
+          {id:'furniture_laci_klinik', label:'Laci Dorong (Klinik)'},
+          {id:'furniture_kursi_dokter', label:'Kursi Dokter'},
+          {id:'furniture_kursi_pasien', label:'Kursi Pasien'},
+          {id:'furniture_kursi_klinik', label:'Kursi Klinik'},
+          {id:'furniture_kursi_kasir', label:'Kursi Kasir'},
+          {id:'furniture_kursi_tunggu', label:'Kursi Tunggu'},
+          {id:'furniture_meja_dokter', label:'Meja Dokter'},
+          {id:'furniture_tempat_tidur', label:'Tempat Tidur Periksa Pasien'},
+      ]},
+      { category: 'Perlengkapan Rak Gerai', items: [
+          {id:'rak_single', label:'Rak Display Single/Wall/Pinggir (90×40×170 cm)'},
+          {id:'rak_double', label:'Rak Display Double/Island/Tengah (90×80×150 cm)'},
+          {id:'rak_endcap', label:'Rak Display End/Endcap/Tutup (80×40×150 cm)'},
+      ]},
+      { category: 'Alat Pemadam Api Ringan (APAR)', items: [
+          {id:'apar_3kg', label:'APAR 3 kg'},
+          {id:'apar_9kg', label:'APAR 9 kg'},
+      ]},
+      { category: 'Keranjang Belanja', items: [
+          {id:'keranjang_belanja', label:'Keranjang Belanja'},
+      ]},
+      { category: 'Seragam KDKMP', items: [
+          {id:'seragam_kdkmp', label:'Seragam KDKMP'},
+      ]},
+      { category: 'Pallet', items: [
+          {id:'pallet', label:'Pallet'},
+      ]},
+      { category: 'Printer', items: [
+          {id:'printer', label:'Printer'},
+      ]},
+      { category: 'Brankas', items: [
+          {id:'brankas', label:'Brankas'},
+      ]},
+      { category: 'Genset', items: [
+          {id:'genset', label:'Genset'},
+      ]},
+      { category: 'ATK', items: [
+          {id:'atk_stempel', label:'Stempel'},
+          {id:'atk_struk', label:'Struk'},
+          {id:'atk_thermal_label', label:'Thermal Label'},
+      ]},
+      { category: 'Alat Kebersihan', items: [
+          {id:'kebersihan_tempat_sampah', label:'Tempat Sampah Besar'},
+          {id:'kebersihan_pel_ember', label:'Alat Pel dan Ember'},
+          {id:'kebersihan_sapu_pengki', label:'Sapu Lantai dan Pengki'},
+      ]},
+      { category: 'Computer (All in One)', items: [
+          {id:'computer_aio', label:'PC All in One Intel, RAM 8 GB, SSD 512 GB'},
+      ]},
+      { category: 'Perlengkapan Beverages dan Frozen Foods', items: [
+          {id:'chiller_2pintu', label:'Chiller 2 Pintu (Tinggi ±197 cm)'},
+          {id:'chest_freezer', label:'Chest Freezer Kapasitas ±680 Liter'},
+      ]},
+      { category: 'Kipas Ceiling', items: [
+          {id:'kipas_ceiling', label:'Kipas Plafon'},
+      ]},
+      { category: 'Exhaust Fan', items: [
+          {id:'exhaust_fan', label:'Exhaust Fan'},
+      ]},
+      { category: 'Loker Lemari', items: [
+          {id:'loker_lemari', label:'Loker Lemari'},
+      ]},
+      { category: 'Alarm Toko', items: [
+          {id:'alarm_toko', label:'Alarm Toko'},
+      ]},
+      { category: 'Mesin Absensi', items: [
+          {id:'mesin_absensi', label:'Mesin Absensi'},
+      ]},
     ];
 
     const KENDARAAN_ITEMS = [
@@ -424,20 +505,25 @@
     function renderKelengkapan() {
       const tbody = document.getElementById('kelengkapan-body');
       if (!tbody) return;
-      tbody.innerHTML = KELENGKAPAN_ITEMS.map(({id, label, jumlah}, i) => `
+      tbody.innerHTML = KELENGKAPAN_ITEMS.map(({category, items}, catIdx) => {
+        return items.map(({id, label}, itemIdx) => {
+          const jumlahCell = `<td style="text-align:center"><input type="number" id="klg_${id}" min="0" step="1" placeholder="0"></td>`;
+          if (itemIdx === 0) {
+            return `
         <tr>
-          <td style="text-align:center">${i+1}</td>
+          <td style="text-align:center" rowspan="${items.length}">${catIdx + 1}</td>
+          <td rowspan="${items.length}">${category}</td>
           <td>${label}</td>
-          <td style="text-align:center">
-            <label style="cursor:pointer;margin-right:6px"><input type="radio" name="klg_fungsi_${id}" value="Y"> Ya</label>
-            <label style="cursor:pointer"><input type="radio" name="klg_fungsi_${id}" value="T"> Tidak</label>
-          </td>
-          <td style="text-align:center">
-            <label style="cursor:pointer;margin-right:6px"><input type="radio" name="klg_${id}" value="Y"> Ada</label>
-            <label style="cursor:pointer"><input type="radio" name="klg_${id}" value="T"> Tidak</label>
-          </td>
-          <td style="text-align:center;color:#555;font-size:0.9em">${jumlah}</td>
-        </tr>`).join('');
+          ${jumlahCell}
+        </tr>`;
+          }
+          return `
+        <tr>
+          <td>${label}</td>
+          ${jumlahCell}
+        </tr>`;
+        }).join('');
+      }).join('');
     }
 
     function renderKendaraan() {
