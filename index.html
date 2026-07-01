@@ -104,7 +104,7 @@
 <body>
   <header>
     <h1>Form Cek Fisik KDKMP</h1>
-    <p>Koperasi Desa/Kelurahan Merah Putih &mdash; Langkah Kerja 1&ndash;2</p>
+    <p>Koperasi Desa/Kelurahan Merah Putih</p>
   </header>
   <div class="container">
 
@@ -263,9 +263,7 @@
         <table class="rab-table">
           <thead><tr>
             <th style="width:36px">No</th><th>Jenis Kendaraan</th>
-            <th style="width:130px;text-align:center">Penggunaan (km)</th>
-            <th style="width:130px;text-align:center">Keberadaan</th>
-            <th style="width:80px;text-align:center">Jumlah</th>
+            <th style="width:110px;text-align:center">Jumlah</th>
           </tr></thead>
           <tbody id="kendaraan-body"></tbody>
         </table>
@@ -497,9 +495,9 @@
     ];
 
     const KENDARAAN_ITEMS = [
-      {id:'truk_roda6',  label:'Truk Roda 6',  jumlah:'1 Buah'},
-      {id:'pickup_4x4',  label:'Pick Up 4x4',   jumlah:'1 Buah'},
-      {id:'motor_roda3', label:'Motor Roda 3',  jumlah:'2 Buah'},
+      {id:'truk_roda6',  label:'Truk Roda 6'},
+      {id:'pickup_4x4',  label:'Pick Up 4x4'},
+      {id:'motor_roda3', label:'Motor Roda 3'},
     ];
 
     function renderKelengkapan() {
@@ -529,19 +527,11 @@
     function renderKendaraan() {
       const tbody = document.getElementById('kendaraan-body');
       if (!tbody) return;
-      tbody.innerHTML = KENDARAAN_ITEMS.map(({id, label, jumlah}, i) => `
+      tbody.innerHTML = KENDARAAN_ITEMS.map(({id, label}, i) => `
         <tr>
           <td style="text-align:center">${i+1}</td>
           <td>${label}</td>
-          <td style="text-align:center">
-            <input type="number" id="knd_${id}_km" min="0" step="0.1" placeholder="0"
-              style="width:80px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;font-size:0.9em">
-          </td>
-          <td style="text-align:center">
-            <label style="cursor:pointer;margin-right:8px"><input type="radio" name="knd_${id}" value="Y"> Ada</label>
-            <label style="cursor:pointer"><input type="radio" name="knd_${id}" value="T"> Tidak</label>
-          </td>
-          <td style="text-align:center;color:#555;font-size:0.9em">${jumlah}</td>
+          <td style="text-align:center"><input type="number" id="knd_${id}" min="0" step="1" placeholder="0"></td>
         </tr>`).join('');
     }
 
@@ -598,11 +588,7 @@
         ...Object.fromEntries(
           KELENGKAPAN_ITEMS.flatMap(({items}) => items).map(({id}) => [`Klg_${id}_Jumlah`, val(`klg_${id}`)])
         ),
-        ...Object.fromEntries(KENDARAAN_ITEMS.flatMap(({id}) => {
-          const kb = document.querySelector(`input[name="knd_${id}"]:checked`)?.value || '';
-          const km = document.getElementById(`knd_${id}_km`)?.value || '';
-          return [[`Knd_${id}_Keberadaan`, kb], [`Knd_${id}_Penggunaan_km`, km]];
-        })),
+        ...Object.fromEntries(KENDARAAN_ITEMS.map(({id}) => [`Knd_${id}_Jumlah`, val(`knd_${id}`)])),
         'Perubahan_Spek': collectSpek().join(' | ') || '-',
         'Link_Foto_Video': val('f_link_foto'),
         'Catatan': val('f_catatan'),
@@ -632,9 +618,8 @@
           return [label, jumlah ? jumlah : '-'];
         })},
         { title: 'Kendaraan', fields: KENDARAAN_ITEMS.map(({id, label}) => {
-          const kb = d[`Knd_${id}_Keberadaan`]==='Y'?'Ada':d[`Knd_${id}_Keberadaan`]==='T'?'Tidak ada':'-';
-          const km = d[`Knd_${id}_Penggunaan_km`]?`, ${d[`Knd_${id}_Penggunaan_km`]} km`:'';
-          return [label, kb+km];
+          const jumlah = d[`Knd_${id}_Jumlah`];
+          return [label, jumlah ? jumlah : '-'];
         })},
         { title: 'Perubahan Spek', fields: [
           ['Poin Perubahan', d['Perubahan_Spek']||'-'],
