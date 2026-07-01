@@ -104,7 +104,7 @@
 <body>
   <header>
     <h1>Form Cek Fisik KDKMP</h1>
-    <p>Koperasi Desa/Kelurahan Merah Putih &mdash; Langkah Kerja 1&ndash;3</p>
+    <p>Koperasi Desa/Kelurahan Merah Putih &mdash; Langkah Kerja 1&ndash;2</p>
   </header>
   <div class="container">
 
@@ -169,88 +169,9 @@
       </div>
     </div>
 
-    <!-- ===== LANGKAH KERJA 2: LOKASI ===== -->
+    <!-- ===== LANGKAH KERJA 2: KONDISI FISIK ===== -->
     <div class="step-section" id="step-2">
-      <h2>Langkah Kerja 2 &mdash; Lokasi</h2>
-      <div class="form-grid">
-        <div class="form-group full-width">
-          <label>Alamat</label>
-          <textarea id="f_alamat" placeholder="Alamat lengkap KDKMP"></textarea>
-        </div>
-        <div class="form-group full-width">
-          <label>Geotagging</label>
-          <div class="geo-row">
-            <input type="text" id="f_geo" placeholder="Contoh: -7.1234, 110.5678">
-            <button class="btn-geo" onclick="ambilLokasi()">&#128205; Ambil Lokasi</button>
-          </div>
-          <small id="geo-status" style="color:#888;font-size:12px;margin-top:4px;display:block"></small>
-        </div>
-      </div>
-
-      <div style="margin-top:20px">
-        <h3 style="color:var(--hijau);font-size:14px;margin-bottom:12px;font-weight:bold">
-          SE Mendagri &mdash; Pemenuhan Kriteria Lokasi KDKMP
-        </h3>
-        <div class="checklist-group">
-          <h4>a. Alas Hak</h4>
-          <div class="check-item"><input type="checkbox" id="se_ah_sertifikat"><label for="se_ah_sertifikat">Sertifikat tanah</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ah_inventaris"><label for="se_ah_inventaris">Terdata dalam buku inventarisasi aset desa</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ah_hibah"><label for="se_ah_hibah">Surat pernyataan hibah</label></div>
-        </div>
-        <div class="checklist-group">
-          <h4>b. Lokasi Strategis</h4>
-          <div class="check-item"><input type="checkbox" id="se_ls_akses"><label for="se_ls_akses">Akses mudah bagi masyarakat</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ls_jalan"><label for="se_ls_jalan">Sarana jalan memadai</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ls_fasilitaspublik"><label for="se_ls_fasilitaspublik">Dekat fasilitas publik</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ls_listrik"><label for="se_ls_listrik">Ada akses listrik, air, dan internet</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ls_transportasi"><label for="se_ls_transportasi">Mudah dijangkau berbagai transportasi</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ls_tepijalan"><label for="se_ls_tepijalan">Berada di tepi jalan raya utama</label></div>
-          <div class="check-item"><input type="checkbox" id="se_ls_persimpangan"><label for="se_ls_persimpangan">Persimpangan / jalan penghubung</label></div>
-          <div class="check-item" style="margin-top:8px;border-top:1px solid #c8e6c9;padding-top:8px;">
-            <input type="checkbox" id="se_ls_tidakstrategis" onchange="toggleLokasiTidakStrategis()">
-            <label for="se_ls_tidakstrategis" style="color:#c0392b;font-style:italic;">Tidak ada yang terpenuhi (lokasi tidak strategis)</label>
-          </div>
-          <div id="lokasi_tidak_strategis_wrap" style="display:none;margin-top:8px;">
-            <input type="text" id="se_ls_alasan" placeholder="Jelaskan kondisi lokasi..." style="width:100%;box-sizing:border-box;padding:6px 10px;border:1px solid #e57373;border-radius:4px;">
-          </div>
-          <div style="margin-top:10px;">
-            <label style="font-size:0.9em;color:#555;display:block;margin-bottom:4px;">Keterangan lokasi strategis</label>
-            <textarea id="se_ls_keterangan" rows="2" placeholder="Catatan tambahan tentang lokasi (opsional)..." style="width:100%;box-sizing:border-box;padding:6px 10px;border:1px solid #ccc;border-radius:4px;resize:vertical;font-size:0.95em;"></textarea>
-          </div>
-        </div>
-        <div class="checklist-group">
-          <h4>c. Kondisi Lahan</h4>
-          <div class="check-item"><input type="checkbox" id="se_kl_siapbangun"><label for="se_kl_siapbangun">Tanah siap bangun</label></div>
-          <div class="check-item"><input type="checkbox" id="se_kl_nocutfill"><label for="se_kl_nocutfill">Tidak ada pekerjaan cut and fill</label></div>
-          <div class="check-item"><input type="checkbox" id="se_kl_stabil"><label for="se_kl_stabil">Kualitas tanah stabil</label></div>
-          <div class="check-item"><input type="checkbox" id="se_kl_nobencana"><label for="se_kl_nobencana">Tidak di lokasi rawan bencana</label></div>
-          <div class="check-item"><input type="checkbox" id="se_kl_nosutet"><label for="se_kl_nosutet">Tidak berada pada jalur SUTET</label></div>
-        </div>
-      </div>
-
-      <div style="margin-top:20px">
-        <h3 style="color:var(--hijau);font-size:14px;margin-bottom:12px;font-weight:bold">Aksesibilitas KDKMP</h3>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Jarak KDKMP dari Pemukiman (km)</label>
-            <input type="number" id="f_jarak_pemukiman" min="0" step="0.1" placeholder="0.0">
-          </div>
-          <div class="form-group">
-            <label>Jarak KDKMP dari Pasar (km)</label>
-            <input type="number" id="f_jarak_pasar" min="0" step="0.1" placeholder="0.0">
-          </div>
-        </div>
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-back" onclick="prevStep()">&larr; Kembali</button>
-        <button class="btn btn-next" onclick="nextStep()">Lanjut &rarr;</button>
-      </div>
-    </div>
-
-    <!-- ===== LANGKAH KERJA 3: KONDISI FISIK ===== -->
-    <div class="step-section" id="step-3">
-      <h2>Langkah Kerja 3 &mdash; Kondisi Fisik &amp; Kelengkapan Gerai</h2>
+      <h2>Langkah Kerja 2 &mdash; Kondisi Fisik &amp; Kelengkapan Gerai</h2>
 
       <h3 style="color:var(--hijau);margin:0 0 6px">a. Dimensi Bangunan KDKMP</h3>
       <p style="font-size:13px;color:#888;margin-bottom:12px">Standar: 20 m &times; 30 m = 600 m&sup2;. Selisih positif = kurang dari standar.</p>
@@ -418,7 +339,7 @@
     </div>
 
     <!-- ===== PERUBAHAN SPEK ===== -->
-    <div class="step-section" id="step-4">
+    <div class="step-section" id="step-3">
       <h2>Perubahan Spek</h2>
       <p style="font-size:13px;color:#888;margin-bottom:12px">Catat setiap perubahan spek yang signifikan dari rencana awal. Opsional — boleh dikosongkan jika tidak ada perubahan.</p>
       <div id="spek-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
@@ -435,7 +356,7 @@
     </div>
 
     <!-- ===== PENUTUP ===== -->
-    <div class="step-section" id="step-5">
+    <div class="step-section" id="step-4">
       <h2>Penutup &mdash; Dokumentasi &amp; Unduh</h2>
       <div class="form-grid">
         <div class="form-group full-width">
@@ -477,7 +398,7 @@
     }
   </script>
   <script>
-    const STEPS = ['Identitas','Lokasi','Kondisi Fisik','Perubahan Spek','Penutup'];
+    const STEPS = ['Identitas','Kondisi Fisik','Perubahan Spek','Penutup'];
     let currentStep = 1;
 
     function renderProgressBar() {
@@ -499,10 +420,10 @@
       currentStep = n;
       renderProgressBar();
       window.scrollTo(0, 0);
-      if (n === 5) renderSummary();
+      if (n === 4) renderSummary();
     }
 
-    function nextStep() { if (!validateCurrentStep()) return; if (currentStep < 5) showStep(currentStep + 1); }
+    function nextStep() { if (!validateCurrentStep()) return; if (currentStep < 4) showStep(currentStep + 1); }
     function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
 
     let spekCounter = 1;
@@ -534,48 +455,8 @@
         el.classList.add('touched');
         if (!el.value.trim()) { if (!firstInvalid) firstInvalid = el; valid = false; }
       });
-      if (currentStep === 2) {
-        const lsIds = ['se_ls_akses','se_ls_jalan','se_ls_fasilitaspublik','se_ls_listrik',
-                       'se_ls_transportasi','se_ls_tepijalan','se_ls_persimpangan','se_ls_tidakstrategis'];
-        const anyChecked = lsIds.some(id => document.getElementById(id).checked);
-        if (!anyChecked) {
-          valid = false;
-          const group = document.querySelector('.checklist-group:nth-of-type(2)');
-          group.style.outline = '2px solid #e74c3c';
-          if (!firstInvalid) firstInvalid = document.getElementById('se_ls_akses');
-          alert('Tolong pilih minimal satu kondisi Lokasi Strategis, atau centang "Tidak ada yang terpenuhi".');
-        } else {
-          document.querySelector('.checklist-group:nth-of-type(2)').style.outline = '';
-        }
-        if (document.getElementById('se_ls_tidakstrategis').checked) {
-          const alasan = document.getElementById('se_ls_alasan');
-          if (!alasan.value.trim()) { alasan.classList.add('touched'); valid = false; if (!firstInvalid) firstInvalid = alasan; }
-        }
-      }
       if (firstInvalid) firstInvalid.focus();
       return valid;
-    }
-
-    function toggleLokasiTidakStrategis() {
-      const v = document.getElementById('se_ls_tidakstrategis').checked;
-      document.getElementById('lokasi_tidak_strategis_wrap').style.display = v ? 'block' : 'none';
-      if (v) ['se_ls_akses','se_ls_jalan','se_ls_fasilitaspublik','se_ls_listrik',
-               'se_ls_transportasi','se_ls_tepijalan','se_ls_persimpangan'].forEach(id => {
-        document.getElementById(id).checked = false;
-      });
-    }
-
-    function ambilLokasi() {
-      const status = document.getElementById('geo-status');
-      if (!navigator.geolocation) { status.textContent = 'Browser tidak mendukung GPS.'; status.style.color = 'var(--merah)'; return; }
-      status.textContent = 'Mengambil lokasi...'; status.style.color = '#888';
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          document.getElementById('f_geo').value = pos.coords.latitude.toFixed(6) + ', ' + pos.coords.longitude.toFixed(6);
-          status.textContent = 'Lokasi berhasil diambil'; status.style.color = 'var(--hijau)';
-        },
-        err => { status.textContent = 'Gagal: ' + err.message; status.style.color = 'var(--merah)'; }
-      );
     }
 
     const KELENGKAPAN_ITEMS = [
@@ -697,28 +578,6 @@
         'Nama Pewawancara': val('f_nama_pewawancara'),
         'Nama Responden': val('f_nama_responden'),
         'Nomor HP Responden': val('f_hp_responden'),
-        'Alamat': val('f_alamat'),
-        'Geotagging': val('f_geo'),
-        'Jarak_Pemukiman_km': val('f_jarak_pemukiman'),
-        'Jarak_Pasar_km': val('f_jarak_pasar'),
-        'SE_AlasHak_Sertifikat': yesNo('se_ah_sertifikat'),
-        'SE_AlasHak_Inventaris': yesNo('se_ah_inventaris'),
-        'SE_AlasHak_Hibah': yesNo('se_ah_hibah'),
-        'SE_Lokasi_AksesMudah': yesNo('se_ls_akses'),
-        'SE_Lokasi_Jalan': yesNo('se_ls_jalan'),
-        'SE_Lokasi_FasilitasPublik': yesNo('se_ls_fasilitaspublik'),
-        'SE_Lokasi_Listrik': yesNo('se_ls_listrik'),
-        'SE_Lokasi_Transportasi': yesNo('se_ls_transportasi'),
-        'SE_Lokasi_TepiJalan': yesNo('se_ls_tepijalan'),
-        'SE_Lokasi_Persimpangan': yesNo('se_ls_persimpangan'),
-        'SE_Lokasi_TidakStrategis': yesNo('se_ls_tidakstrategis'),
-        'SE_Lokasi_AlasanTidakStrategis': val('se_ls_alasan'),
-        'SE_Lokasi_Keterangan': val('se_ls_keterangan'),
-        'SE_Lahan_SiapBangun': yesNo('se_kl_siapbangun'),
-        'SE_Lahan_NoCutFill': yesNo('se_kl_nocutfill'),
-        'SE_Lahan_Stabil': yesNo('se_kl_stabil'),
-        'SE_Lahan_NoBencana': yesNo('se_kl_nobencana'),
-        'SE_Lahan_NoSUTET': yesNo('se_kl_nosutet'),
         'Fisik_Panjang': val('rel_pjg'),
         'Fisik_Lebar': val('rel_lbr'),
         'Fisik_Luas': document.getElementById('rel_luas')?.textContent.replace('—','') || '',
@@ -767,22 +626,6 @@
           ['Nama Pewawancara', d['Nama Pewawancara']||'-'],
           ['Nama Responden', d['Nama Responden']||'-'],
           ['Nomor HP Responden', d['Nomor HP Responden']||'-'],
-        ]},
-        { title: 'Lokasi', fields: [
-          ['Alamat', d['Alamat']||'-'], ['Geotagging', d['Geotagging']||'-'],
-          ['Jarak dari Pemukiman', d['Jarak_Pemukiman_km'] ? d['Jarak_Pemukiman_km']+' km' : '-'],
-          ['Jarak dari Pasar', d['Jarak_Pasar_km'] ? d['Jarak_Pasar_km']+' km' : '-'],
-          ['Alas Hak', [d['SE_AlasHak_Sertifikat']==='Y'&&'Sertifikat',d['SE_AlasHak_Inventaris']==='Y'&&'Inventaris',d['SE_AlasHak_Hibah']==='Y'&&'Hibah'].filter(Boolean).join(', ')||'Tidak ada'],
-          ['Lokasi Strategis', d['SE_Lokasi_TidakStrategis']==='Y'
-            ? 'Tidak strategis - '+(d['SE_Lokasi_AlasanTidakStrategis']||'')
-            : [d['SE_Lokasi_AksesMudah']==='Y'&&'Akses mudah',d['SE_Lokasi_Jalan']==='Y'&&'Jalan memadai',
-               d['SE_Lokasi_FasilitasPublik']==='Y'&&'Fasilitas publik',d['SE_Lokasi_Listrik']==='Y'&&'Listrik/air/internet',
-               d['SE_Lokasi_Transportasi']==='Y'&&'Transportasi',d['SE_Lokasi_TepiJalan']==='Y'&&'Tepi jalan',
-               d['SE_Lokasi_Persimpangan']==='Y'&&'Persimpangan'].filter(Boolean).join(', ')||'-'],
-          ['Keterangan Lokasi', d['SE_Lokasi_Keterangan']||'-'],
-          ['Kondisi Lahan', [d['SE_Lahan_SiapBangun']==='Y'&&'Siap bangun',d['SE_Lahan_NoCutFill']==='Y'&&'Tidak cut&fill',
-            d['SE_Lahan_Stabil']==='Y'&&'Tanah stabil',d['SE_Lahan_NoBencana']==='Y'&&'Tidak rawan bencana',
-            d['SE_Lahan_NoSUTET']==='Y'&&'Tidak jalur SUTET'].filter(Boolean).join(', ')||'Tidak ada'],
         ]},
         { title: 'Dimensi Bangunan', fields: [
           ['Bangunan (P\xd7L)', d['Fisik_Panjang']&&d['Fisik_Lebar'] ? `${d['Fisik_Panjang']} m \xd7 ${d['Fisik_Lebar']} m = ${d['Fisik_Luas']} m\xb2` : '-'],
@@ -840,15 +683,6 @@
       renderProgressBar();
       renderKelengkapan();
       renderKendaraan();
-      ['se_ls_akses','se_ls_jalan','se_ls_fasilitaspublik','se_ls_listrik',
-       'se_ls_transportasi','se_ls_tepijalan','se_ls_persimpangan'].forEach(id => {
-        document.getElementById(id).addEventListener('change', () => {
-          if (document.getElementById(id).checked) {
-            document.getElementById('se_ls_tidakstrategis').checked = false;
-            document.getElementById('lokasi_tidak_strategis_wrap').style.display = 'none';
-          }
-        });
-      });
     });
   </script>
   <script>
@@ -972,12 +806,6 @@
       document.getElementById('f_nama_kdkmp').value =
         `KOPERASI ${jenis} MERAH PUTIH ${desa.toUpperCase()} KECAMATAN ${kec.toUpperCase()}`;
       document.getElementById('f_no').value = DESA_NO_MAP[key] || '';
-
-      const alamatEl = document.getElementById('f_alamat');
-      const labelDesa = jenis === 'KELURAHAN' ? 'Kelurahan' : 'Desa';
-      if (alamatEl) {
-        alamatEl.value = `${labelDesa} ${desa}, Kecamatan ${kec}, ${kab}`;
-      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
