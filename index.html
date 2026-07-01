@@ -201,67 +201,7 @@
         </table>
       </div>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">b. Dimensi Ruangan</h3>
-      <div style="overflow-x:auto;margin-bottom:24px">
-        <table class="rab-table">
-          <thead><tr>
-            <th style="width:130px">Ruangan</th><th>Dimensi</th><th style="width:90px">Standar</th>
-            <th>Realisasi</th><th style="background:var(--kuning);color:#333">Selisih</th>
-          </tr></thead>
-          <tbody>
-            <tr>
-              <td rowspan="3" style="font-weight:600;vertical-align:middle;background:#f9f9f9">Gerai Swalayan</td>
-              <td>Panjang (m)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td><input type="number" id="gs_pjg" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('gs')"></td>
-              <td class="selisih-cell"><span id="gs_sel_pjg">&mdash;</span></td>
-            </tr>
-            <tr>
-              <td>Lebar (m)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td><input type="number" id="gs_lbr" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('gs')"></td>
-              <td class="selisih-cell"><span id="gs_sel_lbr">&mdash;</span></td>
-            </tr>
-            <tr style="font-weight:600">
-              <td>Luas (m&sup2;)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td style="text-align:center;padding:8px"><span id="gs_luas">&mdash;</span></td>
-              <td class="selisih-cell"><span id="gs_sel_luas">&mdash;</span></td>
-            </tr>
-            <tr>
-              <td rowspan="3" style="font-weight:600;vertical-align:middle;background:#f9f9f9">Gerai Klinik</td>
-              <td>Panjang (m)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td><input type="number" id="gk_pjg" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('gk')"></td>
-              <td class="selisih-cell"><span id="gk_sel_pjg">&mdash;</span></td>
-            </tr>
-            <tr>
-              <td>Lebar (m)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td><input type="number" id="gk_lbr" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('gk')"></td>
-              <td class="selisih-cell"><span id="gk_sel_lbr">&mdash;</span></td>
-            </tr>
-            <tr style="font-weight:600">
-              <td>Luas (m&sup2;)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td style="text-align:center;padding:8px"><span id="gk_luas">&mdash;</span></td>
-              <td class="selisih-cell"><span id="gk_sel_luas">&mdash;</span></td>
-            </tr>
-            <tr>
-              <td rowspan="3" style="font-weight:600;vertical-align:middle;background:#f9f9f9">Gudang</td>
-              <td>Panjang (m)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td><input type="number" id="gd_pjg" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('gd')"></td>
-              <td class="selisih-cell"><span id="gd_sel_pjg">&mdash;</span></td>
-            </tr>
-            <tr>
-              <td>Lebar (m)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td><input type="number" id="gd_lbr" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('gd')"></td>
-              <td class="selisih-cell"><span id="gd_sel_lbr">&mdash;</span></td>
-            </tr>
-            <tr style="font-weight:600">
-              <td>Luas (m&sup2;)</td><td style="text-align:center;color:#888">&mdash;</td>
-              <td style="text-align:center;padding:8px"><span id="gd_luas">&mdash;</span></td>
-              <td class="selisih-cell"><span id="gd_sel_luas">&mdash;</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 style="color:var(--hijau);margin:0 0 6px">c. Kondisi Fisik Bangunan</h3>
+      <h3 style="color:var(--hijau);margin:0 0 6px">b. Kondisi Fisik Bangunan</h3>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table">
           <thead><tr>
@@ -305,7 +245,7 @@
         </table>
       </div>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">d. Kelengkapan Peralatan &amp; Fasilitas</h3>
+      <h3 style="color:var(--hijau);margin:0 0 6px">c. Kelengkapan Peralatan &amp; Fasilitas</h3>
       <p style="font-size:13px;color:#888;margin-bottom:12px">Centang fungsi dan keberadaan setiap item berdasarkan hasil observasi visual.</p>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table" id="tbl-kelengkapan">
@@ -319,7 +259,7 @@
         </table>
       </div>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">e. Kendaraan</h3>
+      <h3 style="color:var(--hijau);margin:0 0 6px">d. Kendaraan</h3>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table">
           <thead><tr>
@@ -542,27 +482,6 @@
       }
     }
 
-    function hitungDimensiRuangan(prefix) {
-      const pEl = document.getElementById(prefix + '_pjg');
-      const lEl = document.getElementById(prefix + '_lbr');
-      const p = pEl && pEl.value !== '' ? parseFloat(pEl.value) : null;
-      const l = lEl && lEl.value !== '' ? parseFloat(lEl.value) : null;
-      const sp = document.getElementById(prefix + '_sel_pjg');
-      const sl = document.getElementById(prefix + '_sel_lbr');
-      if (sp) sp.textContent = p !== null ? p.toFixed(2) : '—';
-      if (sl) sl.textContent = l !== null ? l.toFixed(2) : '—';
-      const luasEl = document.getElementById(prefix + '_luas');
-      const selLuasEl = document.getElementById(prefix + '_sel_luas');
-      if (p !== null && l !== null) {
-        const luas = p * l;
-        if (luasEl) luasEl.textContent = luas.toFixed(2);
-        if (selLuasEl) selLuasEl.textContent = luas.toFixed(2);
-      } else {
-        if (luasEl) luasEl.textContent = '—';
-        if (selLuasEl) selLuasEl.textContent = '—';
-      }
-    }
-
     function yesNo(id) { return document.getElementById(id)?.checked ? 'Y' : 'N'; }
     function val(id) { return document.getElementById(id)?.value || ''; }
 
@@ -584,15 +503,6 @@
         'Fisik_Selisih_Panjang': document.getElementById('sel_pjg')?.textContent.replace('—','') || '',
         'Fisik_Selisih_Lebar': document.getElementById('sel_lbr')?.textContent.replace('—','') || '',
         'Fisik_Selisih_Luas': document.getElementById('sel_luas')?.textContent.replace('—','') || '',
-        'GeraiSwalayan_Panjang': val('gs_pjg'),
-        'GeraiSwalayan_Lebar': val('gs_lbr'),
-        'GeraiSwalayan_Luas': document.getElementById('gs_luas')?.textContent.replace('—','') || '',
-        'GeraiKlinik_Panjang': val('gk_pjg'),
-        'GeraiKlinik_Lebar': val('gk_lbr'),
-        'GeraiKlinik_Luas': document.getElementById('gk_luas')?.textContent.replace('—','') || '',
-        'Gudang_Panjang': val('gd_pjg'),
-        'Gudang_Lebar': val('gd_lbr'),
-        'Gudang_Luas': document.getElementById('gd_luas')?.textContent.replace('—','') || '',
         'Fisik_LantaiKeramik': document.querySelector('input[name="fis_lantai_keramik"]:checked')?.value || '',
         'Fisik_LantaiGudang': document.querySelector('input[name="fis_lantai_gudang"]:checked')?.value || '',
         'Fisik_Dinding': document.querySelector('input[name="fis_dinding"]:checked')?.value || '',
@@ -629,9 +539,6 @@
         ]},
         { title: 'Dimensi Bangunan', fields: [
           ['Bangunan (P\xd7L)', d['Fisik_Panjang']&&d['Fisik_Lebar'] ? `${d['Fisik_Panjang']} m \xd7 ${d['Fisik_Lebar']} m = ${d['Fisik_Luas']} m\xb2` : '-'],
-          ['Gerai Swalayan', d['GeraiSwalayan_Panjang']&&d['GeraiSwalayan_Lebar'] ? `${d['GeraiSwalayan_Panjang']} m \xd7 ${d['GeraiSwalayan_Lebar']} m = ${d['GeraiSwalayan_Luas']} m\xb2` : '-'],
-          ['Gerai Klinik', d['GeraiKlinik_Panjang']&&d['GeraiKlinik_Lebar'] ? `${d['GeraiKlinik_Panjang']} m \xd7 ${d['GeraiKlinik_Lebar']} m = ${d['GeraiKlinik_Luas']} m\xb2` : '-'],
-          ['Gudang', d['Gudang_Panjang']&&d['Gudang_Lebar'] ? `${d['Gudang_Panjang']} m \xd7 ${d['Gudang_Lebar']} m = ${d['Gudang_Luas']} m\xb2` : '-'],
           ['Lantai Keramik', d['Fisik_LantaiKeramik']||'-'], ['Lantai Gudang', d['Fisik_LantaiGudang']||'-'],
           ['Dinding', d['Fisik_Dinding']||'-'], ['Atap', d['Fisik_Atap']||'-'],
           ['Pintu', d['Fisik_Pintu']||'-'], ['Jendela / Kaca', d['Fisik_Jendela']||'-'],
