@@ -5,100 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Cek Fisik KDKMP</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📏</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ===== minimal-white token system (frontend-scheme) ===== */
     :root {
-      --hijau: #2d7a3c;
-      --hijau-muda: #e8f5e9;
-      --kuning: #f5c518;
-      --kuning-muda: #fffde7;
-      --merah: #c0392b;
-      --abu: #9e9e9e;
-      --border: #ddd;
+      --bg:#ffffff; --bg-soft:#f7f7f8; --surface:#ffffff; --surface-2:#f2f2f4;
+      --border:rgba(0,0,0,.08); --border-strong:rgba(0,0,0,.16);
+      --text-1:#111216; --text-2:#55596a; --text-3:#8a8f9e;
+      --accent:#3b6cff; --accent-2:#7a5cff; --accent-3:#ff5c8a;
+      --good:#1aaf6c; --warn:#f5a524; --bad:#e0445a;
+      --grad:linear-gradient(135deg,#3b6cff,#7a5cff 55%,#ff5c8a);
+      --grad-soft:linear-gradient(135deg,#eef2ff,#f5ecff 55%,#ffeef5);
+      --radius:14px; --radius-sm:8px; --radius-lg:20px;
+      --shadow:0 2px 8px rgba(18,24,40,.07),0 1px 2px rgba(18,24,40,.04);
+      --shadow-md:0 8px 24px rgba(18,24,40,.10),0 2px 6px rgba(18,24,40,.05);
+      --font-sans:'Inter','Noto Sans',system-ui,sans-serif;
+      --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px;
+      --ease:cubic-bezier(.4,0,.2,1); --dur:.2s;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; font-size: 15px; color: #333; background: #f5f5f5; }
-    .container { max-width: 800px; margin: 0 auto; padding: 16px; }
-    header { background: var(--hijau); color: white; padding: 16px; text-align: center; }
-    header h1 { font-size: 1.2rem; }
-    header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+    body { font-family: var(--font-sans); font-size: 15px; color: var(--text-1); background: var(--bg-soft); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 820px; margin: 0 auto; padding: 20px 16px 40px; }
+    header { padding: 20px 16px; text-align: center; }
+    header h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em; color: var(--text-1); }
+    header p { font-size: 0.85rem; color: var(--text-3); margin-top: 4px; }
 
     .progress-bar { display: flex; justify-content: space-between; align-items: center;
-      background: white; padding: 16px; margin-bottom: 16px; border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1); overflow-x: auto; }
-    .step-dot { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 60px; }
-    .step-dot .circle { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--abu);
-      background: white; color: var(--abu); display: flex; align-items: center;
-      justify-content: center; font-weight: bold; font-size: 13px; }
-    .step-dot .label { font-size: 10px; color: var(--abu); text-align: center; max-width: 60px; }
-    .step-dot.active .circle { border-color: var(--hijau); background: var(--hijau); color: white; }
-    .step-dot.active .label { color: var(--hijau); font-weight: bold; }
-    .step-dot.done .circle { border-color: var(--kuning); background: var(--kuning); color: #333; }
-    .step-dot.done .label { color: #555; }
+      background: var(--surface); padding: 16px; margin-bottom: 16px; border-radius: var(--radius);
+      border: 1px solid var(--border); box-shadow: var(--shadow); overflow-x: auto; }
+    .step-dot { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 58px; }
+    .step-dot .circle { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border-strong);
+      background: var(--surface); color: var(--text-3); display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-size: 12px; transition: all var(--dur) var(--ease); }
+    .step-dot .label { font-size: 10px; color: var(--text-3); text-align: center; max-width: 60px; font-weight: 500; }
+    .step-dot.active .circle { border-color: var(--accent); background: var(--accent); color: white; }
+    .step-dot.active .label { color: var(--accent); font-weight: 700; }
+    .step-dot.done .circle { border-color: var(--good); background: var(--good); color: white; }
+    .step-dot.done .label { color: var(--text-2); }
     .step-line { flex: 1; height: 2px; background: var(--border); min-width: 8px; }
 
-    .step-section { display: none; background: white; border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 16px; }
-    .step-section.active { display: block; }
-    .step-section h2 { color: var(--hijau); font-size: 1.1rem; margin-bottom: 16px;
-      padding-bottom: 8px; border-bottom: 2px solid var(--hijau-muda); }
+    .step-section { display: none; background: var(--surface); border-radius: var(--radius);
+      border: 1px solid var(--border); box-shadow: var(--shadow); padding: 22px; margin-bottom: 16px; }
+    .step-section.active { display: block; animation: fadeSlide .25s var(--ease); }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .step-section h2 { color: var(--text-1); font-size: 1.15rem; font-weight: 700; letter-spacing: -.01em; margin-bottom: 18px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .step-section h3 { font-size: 1rem; font-weight: 700; color: var(--text-1); }
+    .step-section p.hint { font-size: 13px; color: var(--text-3); margin-bottom: 12px; }
 
     .form-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 768px) { .form-grid { grid-template-columns: 1fr 1fr; } }
-    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group.full-width { grid-column: 1 / -1; }
-    label { font-size: 13px; font-weight: bold; color: #555; }
-    label .req { color: var(--merah); margin-left: 2px; }
+    label { font-size: 13px; font-weight: 600; color: var(--text-2); }
+    label .req { color: var(--bad); margin-left: 2px; }
     input[type="text"], input[type="number"], input[type="date"], input[type="url"],
     textarea, select {
-      padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px;
-      font-size: 14px; width: 100%; transition: border-color 0.2s;
+      padding: 9px 12px; border: 1.5px solid var(--border-strong); border-radius: var(--radius-sm);
+      font-size: 14px; font-family: var(--font-sans); color: var(--text-1); width: 100%;
+      background: var(--surface); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
     }
-    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--hijau); }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59,108,255,.15); }
     textarea { resize: vertical; min-height: 80px; }
-    input.touched:invalid { border-color: var(--merah); }
+    input.touched:invalid { border-color: var(--bad); }
 
     .btn-row { display: flex; justify-content: space-between; margin-top: 20px; }
-    .btn { padding: 10px 24px; border: none; border-radius: 6px; font-size: 14px;
-      font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
+    .btn { padding: 10px 22px; border: 1.5px solid transparent; border-radius: var(--radius-sm); font-size: 14px;
+      font-weight: 600; font-family: var(--font-sans); cursor: pointer; transition: all var(--dur) var(--ease); }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .btn-next { background: var(--hijau); color: white; }
-    .btn-back { background: var(--kuning); color: #333; }
-    .btn-download { background: var(--hijau); color: white; font-size: 16px;
+    .btn-next { background: var(--accent); color: white; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+    .btn-next:hover { opacity: .9; box-shadow: var(--shadow-md); }
+    .btn-back { background: var(--surface-2); color: var(--text-1); border-color: var(--border-strong); }
+    .btn-back:hover { background: var(--surface); box-shadow: var(--shadow); }
+    .btn-download { background: var(--accent); color: white; font-size: 15px;
       padding: 12px 32px; width: 100%; margin-top: 12px; border: none;
-      border-radius: 6px; cursor: pointer; font-weight: bold; }
+      border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; transition: opacity var(--dur) var(--ease); }
     .btn-download:hover { opacity: 0.9; }
 
-    .geo-row { display: flex; gap: 8px; }
-    .geo-row input { flex: 1; }
-    .btn-geo { background: var(--hijau-muda); color: var(--hijau); border: 1px solid var(--hijau);
-      border-radius: 6px; padding: 9px 12px; font-size: 13px; cursor: pointer; white-space: nowrap; }
-
-    .checklist-group { margin-bottom: 16px; background: var(--hijau-muda); border-radius: 8px; padding: 12px; }
-    .checklist-group h4 { font-size: 13px; color: var(--hijau); margin-bottom: 8px; font-weight: bold; }
+    .checklist-group { margin-bottom: 16px; background: var(--surface-2); border-radius: var(--radius-sm); padding: 12px; }
+    .checklist-group h4 { font-size: 13px; color: var(--text-1); margin-bottom: 8px; font-weight: 700; }
     .check-item { display: flex; align-items: center; gap: 8px; padding: 6px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 13px; }
+      border-bottom: 1px solid var(--border); font-size: 13px; }
     .check-item:last-child { border-bottom: none; }
-    .check-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--hijau); flex-shrink: 0; }
+    .check-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
 
     .rab-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .rab-table th { background: var(--hijau); color: white; padding: 10px 8px; text-align: center; }
+    .rab-table th { background: var(--text-1); color: white; padding: 10px 8px; text-align: center; font-weight: 600; }
     .rab-table td { padding: 6px; border: 1px solid var(--border); }
-    .rab-table td:first-child { background: #f9f9f9; font-size: 12px; color: #555; font-weight: bold; padding: 8px; }
+    .rab-table td:first-child { background: var(--surface-2); font-size: 12px; color: var(--text-2); font-weight: 600; padding: 8px; }
     .rab-table input { padding: 6px; font-size: 13px; }
-    .selisih-cell { background: var(--kuning-muda); font-weight: bold; text-align: center;
-      padding: 8px; border: 1px solid var(--border); }
+    .selisih-cell { background: var(--grad-soft); font-weight: 700; text-align: center;
+      padding: 8px; border: 1px solid var(--border); color: var(--text-1); }
+    .radio-pair { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .radio-pair label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.9em; font-weight: 400; color: var(--text-1); }
+    .radio-pair input[type="radio"] { accent-color: var(--accent); }
 
-    .summary-section { background: var(--hijau-muda); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-    .summary-section h3 { color: var(--hijau); font-size: 14px; margin-bottom: 12px;
-      padding-bottom: 8px; border-bottom: 1px solid rgba(45,122,60,0.2); }
+    .alert { padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+    .alert-info { background: var(--grad-soft); border-color: rgba(59,108,255,.25); color: var(--text-1); }
+    .alert ul { margin: 6px 0 0 18px; }
+
+    .summary-section { background: var(--surface-2); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+    .summary-section h3 { color: var(--text-1); font-size: 14px; margin-bottom: 12px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border); }
     .summary-group { margin-bottom: 12px; }
-    .summary-group-title { font-size: 12px; font-weight: bold; color: var(--hijau);
-      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .summary-group-title { font-size: 11px; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
     .summary-row { display: flex; gap: 8px; padding: 5px 0; font-size: 13px;
-      border-bottom: 1px solid rgba(0,0,0,0.06); }
+      border-bottom: 1px solid var(--border); }
     .summary-row:last-child { border-bottom: none; }
-    .summary-label { font-weight: bold; min-width: 170px; color: #555; flex-shrink: 0; }
-    .summary-value { color: #333; }
+    .summary-label { font-weight: 600; min-width: 170px; color: var(--text-2); flex-shrink: 0; }
+    .summary-value { color: var(--text-1); }
   </style>
 </head>
 <body>
@@ -169,39 +188,61 @@
       </div>
     </div>
 
-    <!-- ===== LANGKAH KERJA 2: KONDISI FISIK ===== -->
+    <!-- ===== LANGKAH KERJA 2: DIMENSI BANGUNAN & RUANGAN ===== -->
     <div class="step-section" id="step-2">
-      <h2>Langkah Kerja 2 &mdash; Kondisi Fisik &amp; Kelengkapan Gerai</h2>
+      <h2>Langkah Kerja 2 &mdash; Dimensi Bangunan &amp; Ruangan</h2>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">a. Dimensi Bangunan KDKMP</h3>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Standar: 20 m &times; 30 m = 600 m&sup2;. Selisih positif = kurang dari standar.</p>
+      <h3 style="margin:0 0 6px">a. Dimensi Bangunan KDKMP</h3>
+      <p class="hint">Standar: 30 m &times; 20 m = 600 m&sup2;. Selisih positif = kurang dari standar.</p>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table">
           <thead><tr>
             <th style="width:130px">Dimensi</th><th style="width:100px">Standar</th>
-            <th>Realisasi</th><th style="background:var(--kuning);color:#333">Selisih</th>
+            <th>Realisasi</th><th>Selisih</th>
           </tr></thead>
           <tbody>
             <tr>
-              <td>Panjang (m)</td><td style="text-align:center;color:#888">20</td>
+              <td>Panjang (m)</td><td style="text-align:center;color:var(--text-3)">30</td>
               <td><input type="number" id="rel_pjg" min="0" step="0.1" placeholder="0" oninput="hitungDimensiGerai()"></td>
               <td class="selisih-cell"><span id="sel_pjg">&mdash;</span></td>
             </tr>
             <tr>
-              <td>Lebar (m)</td><td style="text-align:center;color:#888">30</td>
+              <td>Lebar (m)</td><td style="text-align:center;color:var(--text-3)">20</td>
               <td><input type="number" id="rel_lbr" min="0" step="0.1" placeholder="0" oninput="hitungDimensiGerai()"></td>
               <td class="selisih-cell"><span id="sel_lbr">&mdash;</span></td>
             </tr>
             <tr style="font-weight:600">
-              <td>Luas (m&sup2;)</td><td style="text-align:center;color:#888">600</td>
-              <td style="text-align:center;padding:8px"><span id="rel_luas" style="color:#333">&mdash;</span></td>
+              <td>Luas (m&sup2;)</td><td style="text-align:center;color:var(--text-3)">600</td>
+              <td style="text-align:center;padding:8px"><span id="rel_luas">&mdash;</span></td>
               <td class="selisih-cell"><span id="sel_luas">&mdash;</span></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">b. Kondisi Fisik Bangunan</h3>
+      <h3 style="margin:0 0 6px">b. Dimensi Ruangan</h3>
+      <p class="hint">Ukur setiap ruangan yang ada. Jika standar belum ditentukan (mengikuti Denah KDKMP), selisih tidak dihitung.</p>
+      <div style="overflow-x:auto;margin-bottom:24px">
+        <table class="rab-table">
+          <thead><tr>
+            <th style="width:150px">Ruangan</th><th>Dimensi</th><th style="width:90px">Standar</th>
+            <th>Realisasi</th><th>Selisih</th>
+          </tr></thead>
+          <tbody id="dimensi-ruangan-body"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="prevStep()">&larr; Kembali</button>
+        <button class="btn btn-next" onclick="nextStep()">Lanjut &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== LANGKAH KERJA 3: KONDISI FISIK & KONSTRUKSI ===== -->
+    <div class="step-section" id="step-3">
+      <h2>Langkah Kerja 3 &mdash; Kondisi Fisik &amp; Konstruksi</h2>
+
+      <h3 style="margin:0 0 6px">a. Kondisi Fisik Bangunan</h3>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table">
           <thead><tr>
@@ -245,8 +286,33 @@
         </table>
       </div>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">c. Kelengkapan Peralatan &amp; Fasilitas</h3>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Isi jumlah aktual tiap item berdasarkan hasil observasi fisik.</p>
+      <h3 style="margin:24px 0 6px">b. Kelengkapan Fisik Gerai (Struktur, Mekanikal, Elektrikal, Arsitektur)</h3>
+      <p class="hint">Cek komponen konstruksi terhadap standar bangunan, catat jumlah/realisasi dan kondisinya.</p>
+      <div style="overflow-x:auto">
+        <table class="rab-table" id="tbl-kelengkapan-fisik">
+          <thead><tr>
+            <th style="width:36px">No</th><th style="width:130px">Kategori</th>
+            <th>Item</th>
+            <th style="width:90px;text-align:center">Realisasi</th>
+            <th style="width:130px;text-align:center">Kondisi</th>
+            <th style="width:140px">Keterangan</th>
+          </tr></thead>
+          <tbody id="kelengkapan-fisik-body"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="prevStep()">&larr; Kembali</button>
+        <button class="btn btn-next" onclick="nextStep()">Lanjut &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== LANGKAH KERJA 4: KELENGKAPAN & KENDARAAN ===== -->
+    <div class="step-section" id="step-4">
+      <h2>Langkah Kerja 4 &mdash; Kelengkapan Peralatan &amp; Kendaraan</h2>
+
+      <h3 style="margin:0 0 6px">a. Kelengkapan Peralatan &amp; Fasilitas</h3>
+      <p class="hint">Isi jumlah aktual tiap item berdasarkan hasil observasi fisik.</p>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table" id="tbl-kelengkapan">
           <thead><tr>
@@ -258,12 +324,14 @@
         </table>
       </div>
 
-      <h3 style="color:var(--hijau);margin:0 0 6px">d. Kendaraan</h3>
+      <h3 style="margin:0 0 6px">b. Kendaraan</h3>
+      <p class="hint">Catat jumlah dan pastikan kendaraan dapat dioperasikan.</p>
       <div style="overflow-x:auto;margin-bottom:24px">
         <table class="rab-table">
           <thead><tr>
             <th style="width:36px">No</th><th>Jenis Kendaraan</th>
-            <th style="width:110px;text-align:center">Jumlah</th>
+            <th style="width:90px;text-align:center">Jumlah</th>
+            <th style="width:140px;text-align:center">Dapat Dioperasikan</th>
           </tr></thead>
           <tbody id="kendaraan-body"></tbody>
         </table>
@@ -275,10 +343,31 @@
       </div>
     </div>
 
+    <!-- ===== LANGKAH KERJA 5: DOKUMEN & LEGALITAS ===== -->
+    <div class="step-section" id="step-5">
+      <h2>Langkah Kerja 5 &mdash; Dokumen &amp; Legalitas</h2>
+      <p class="hint">Mintalah dokumen pendukung kepada pengurus KDKMP atau perangkat desa/kelurahan setempat untuk memeriksa keselarasan fisik dan legalitas.</p>
+      <div style="overflow-x:auto">
+        <table class="rab-table" id="tbl-dokumen-legalitas">
+          <thead><tr>
+            <th style="width:40px">No</th><th style="width:260px">Dokumen</th>
+            <th style="width:150px;text-align:center">Status</th>
+            <th>Keterangan</th>
+          </tr></thead>
+          <tbody id="dokumen-legalitas-body"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="prevStep()">&larr; Kembali</button>
+        <button class="btn btn-next" onclick="nextStep()">Lanjut &rarr;</button>
+      </div>
+    </div>
+
     <!-- ===== CATATAN LAPANGAN ===== -->
-    <div class="step-section" id="step-3">
+    <div class="step-section" id="step-6">
       <h2>Catatan Lapangan</h2>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Uraikan hal-hal yang belum atau tidak dapat dicatat di bagian sebelumnya</p>
+      <p class="hint">Uraikan hal-hal yang belum atau tidak dapat dicatat di bagian sebelumnya</p>
       <textarea id="f_catatan_lapangan" placeholder="Tuliskan catatan, temuan lapangan, atau hal lain yang relevan..." style="min-height:180px"></textarea>
       <div class="btn-row" style="margin-top:20px">
         <button class="btn btn-back" onclick="prevStep()">&larr; Kembali</button>
@@ -287,10 +376,20 @@
     </div>
 
     <!-- ===== PENUTUP ===== -->
-    <div class="step-section" id="step-4">
+    <div class="step-section" id="step-7">
       <h2>Penutup &mdash; Dokumentasi &amp; Unduh</h2>
 
-      <div class="summary-section" id="summary-wrapper" style="margin-top:24px">
+      <div class="alert alert-info">
+        <strong>Pengingat dokumentasi foto &amp; video:</strong>
+        <ul>
+          <li>Ukuran foto maksimum 1 MB per file; video 720p pada 30 fps.</li>
+          <li>Pastikan foto memuat informasi geotagging dan waktu pengambilan.</li>
+          <li>Beri nama file yang jelas, contoh: <em>Tampak_Depan_27062026.jpg</em>, <em>Ukuran_Panjang_Bangunan_27062026.jpg</em>.</li>
+          <li>Unggah seluruh foto dan video ke Aplikasi Pemantauan dari HP atau komputer.</li>
+        </ul>
+      </div>
+
+      <div class="summary-section" id="summary-wrapper">
         <h3>Ringkasan Data Cek Fisik</h3>
         <div id="summary-content"></div>
       </div>
@@ -319,7 +418,7 @@
     }
   </script>
   <script>
-    const STEPS = ['Identitas','Kondisi Fisik','Catatan Lapangan','Penutup'];
+    const STEPS = ['Identitas','Dimensi','Kondisi Fisik','Kelengkapan','Dokumen','Catatan','Penutup'];
     let currentStep = 1;
 
     function renderProgressBar() {
@@ -341,10 +440,10 @@
       currentStep = n;
       renderProgressBar();
       window.scrollTo(0, 0);
-      if (n === 4) renderSummary();
+      if (n === 7) renderSummary();
     }
 
-    function nextStep() { if (!validateCurrentStep()) return; if (currentStep < 4) showStep(currentStep + 1); }
+    function nextStep() { if (!validateCurrentStep()) return; if (currentStep < 7) showStep(currentStep + 1); }
     function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
 
 
@@ -464,6 +563,67 @@
       {id:'motor_roda3', label:'Motor Roda 3'},
     ];
 
+    // Standar per pptx "Panduan Observasi Lapangan Gerai Fisik KDKMP" (KK1: Dimensi Bangunan & Ruang).
+    // stdP/stdL/stdLuas null = tidak ada standar baku (mengikuti Denah KDKMP) -> selisih tidak dihitung.
+    const DIMENSI_RUANGAN = [
+      {key:'swalayan',        label:'Gerai Swalayan',        stdP:17.5, stdL:5.75, stdLuas:100.625},
+      {key:'tunggu_klinik',   label:'Ruang Tunggu Klinik',   stdP:5,    stdL:3.5,  stdLuas:17.5},
+      {key:'praktek_dokter',  label:'Ruang Praktek Dokter',  stdP:5,    stdL:3.5,  stdLuas:17.5},
+      {key:'gudang_utama',    label:'Gudang Utama',          stdP:null, stdL:null, stdLuas:null},
+      {key:'gudang_gas',      label:'Gudang Gas',            stdP:null, stdL:null, stdLuas:null},
+      {key:'gudang_pupuk',    label:'Gudang Pupuk',          stdP:4,    stdL:5,    stdLuas:20},
+      {key:'teras_depan',     label:'Teras Depan',           stdP:null, stdL:null, stdLuas:null},
+      {key:'teras_belakang',  label:'Teras Belakang',        stdP:null, stdL:null, stdLuas:null},
+      {key:'ramp',            label:'Ramp',                  stdP:5,    stdL:6,    stdLuas:30},
+    ];
+
+    // Kelengkapan Fisik Gerai (cek konstruksi) per docx Lampiran S Deputi Juknis, Kertas Kerja Kondisi Fisik & Kelengkapan Gerai.
+    const KELENGKAPAN_FISIK_ITEMS = [
+      { category: 'Struktur Utama', items: [
+          {id:'spandek', label:'Ketebalan Spandek'},
+          {id:'beton_kolom', label:'Jumlah Beton Kolom'},
+          {id:'tinggi_dinding', label:'Tinggi Dinding'},
+          {id:'sling_atap', label:'Sling Atap'},
+      ]},
+      { category: 'Mekanikal', items: [
+          {id:'talang_hujan', label:'Talang Hujan'},
+          {id:'toren_air', label:'Toren Air'},
+      ]},
+      { category: 'Elektrikal', items: [
+          {id:'lampu_tki_2x18', label:'Lampu TKI LED 2x18 Watt'},
+          {id:'lampu_rm_2x18', label:'Lampu RM TL LED 2x18 Watt'},
+          {id:'lampu_tki_1x18', label:'Lampu TKI LED 1x18 Watt'},
+          {id:'industrial_light', label:'Industrial Light (Gudang)'},
+          {id:'downlight_14w', label:'Downlight 1x14 Watt'},
+          {id:'downlight_5w', label:'Downlight 1x5 Watt'},
+          {id:'saklar_tunggal', label:'Saklar Tunggal'},
+          {id:'stop_kontak', label:'Stop Kontak'},
+          {id:'kotak_kontak_dinding', label:'Kotak Kontak Dinding'},
+          {id:'saklar_ganda', label:'Saklar Ganda'},
+      ]},
+      { category: 'Arsitektur', items: [
+          {id:'pintu_single_ruko', label:'Pintu Single Ruko'},
+          {id:'pintu_pvc_toilet', label:'Pintu PVC (Toilet)'},
+          {id:'pintu_folding_gate', label:'Pintu Folding Gate'},
+          {id:'pintu_folding_door', label:'Pintu Folding Door'},
+          {id:'pintu_besi', label:'Pintu Besi'},
+          {id:'pagar_kawat_355', label:'Pagar Kawat 3,5x1,5'},
+          {id:'dinding_partisi_kaca', label:'Dinding Partisi Kaca'},
+          {id:'pintu_kaca_frameless', label:'Pintu Kaca Frameless'},
+          {id:'pagar_kawat', label:'Pagar Kawat'},
+          {id:'closet_jongkok', label:'Pasangan Closet Jongkok (2 unit)'},
+          {id:'kran_dinding', label:'Pasangan Kran Dinding (2 unit)'},
+          {id:'closet_duduk_jetwasher', label:'Pasangan Closet Duduk + Jet Washer (1 unit)'},
+          {id:'wastafel', label:'Pasangan Wastafel (2 unit)'},
+      ]},
+    ];
+
+    const DOKUMEN_LEGALITAS_ITEMS = [
+      {id:'sertifikat_tanah', label:'Sertifikat Tanah (bukti kepemilikan/penguasaan lahan gerai KDKMP)'},
+      {id:'surat_kendaraan', label:'Surat Kendaraan (STNK/BPKB kendaraan operasional)'},
+      {id:'lahan_sawah', label:'Konfirmasi status lahan sawah (jika gerai dibangun di atas lahan sawah)'},
+    ];
+
     function renderKelengkapan() {
       const tbody = document.getElementById('kelengkapan-body');
       if (!tbody) return;
@@ -496,20 +656,101 @@
           <td style="text-align:center">${i+1}</td>
           <td>${label}</td>
           <td style="text-align:center"><input type="number" id="knd_${id}" min="0" step="1" placeholder="0"></td>
+          <td style="text-align:center">
+            <div class="radio-pair">
+              <label><input type="radio" name="knd_${id}_operasional" value="Y"> Ya</label>
+              <label><input type="radio" name="knd_${id}_operasional" value="T"> Tidak</label>
+            </div>
+          </td>
         </tr>`).join('');
     }
 
+    function renderKelengkapanFisik() {
+      const tbody = document.getElementById('kelengkapan-fisik-body');
+      if (!tbody) return;
+      tbody.innerHTML = KELENGKAPAN_FISIK_ITEMS.map(({category, items}, catIdx) => {
+        return items.map(({id, label}, itemIdx) => {
+          const cells = `
+          <td>${label}</td>
+          <td style="text-align:center"><input type="number" id="klgfisik_${id}_jumlah" min="0" step="1" placeholder="0"></td>
+          <td style="text-align:center">
+            <div class="radio-pair">
+              <label><input type="radio" name="klgfisik_${id}_kondisi" value="Baik"> Baik</label>
+              <label><input type="radio" name="klgfisik_${id}_kondisi" value="Rusak"> Rusak</label>
+            </div>
+          </td>
+          <td><input type="text" id="klgfisik_${id}_ket" placeholder="Keterangan"></td>`;
+          if (itemIdx === 0) {
+            return `
+        <tr>
+          <td style="text-align:center" rowspan="${items.length}">${catIdx + 1}</td>
+          <td rowspan="${items.length}">${category}</td>
+          ${cells}
+        </tr>`;
+          }
+          return `<tr>${cells}</tr>`;
+        }).join('');
+      }).join('');
+    }
+
+    function renderDimensiRuangan() {
+      const tbody = document.getElementById('dimensi-ruangan-body');
+      if (!tbody) return;
+      tbody.innerHTML = DIMENSI_RUANGAN.map(({key, label, stdP, stdL, stdLuas}) => {
+        const stdCell = (v) => v === null ? '<span style="color:var(--text-3)">Sesuai Denah</span>' : v;
+        return `
+        <tr>
+          <td rowspan="3" style="vertical-align:middle">${label}</td>
+          <td>Panjang (m)</td>
+          <td style="text-align:center;color:var(--text-3)">${stdCell(stdP)}</td>
+          <td><input type="number" id="dr_${key}_pjg" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('${key}')"></td>
+          <td class="selisih-cell"><span id="dr_${key}_sel_pjg">&mdash;</span></td>
+        </tr>
+        <tr>
+          <td>Lebar (m)</td>
+          <td style="text-align:center;color:var(--text-3)">${stdCell(stdL)}</td>
+          <td><input type="number" id="dr_${key}_lbr" min="0" step="0.1" placeholder="0" oninput="hitungDimensiRuangan('${key}')"></td>
+          <td class="selisih-cell"><span id="dr_${key}_sel_lbr">&mdash;</span></td>
+        </tr>
+        <tr style="font-weight:600">
+          <td>Luas (m&sup2;)</td>
+          <td style="text-align:center;color:var(--text-3)">${stdCell(stdLuas)}</td>
+          <td style="text-align:center;padding:8px"><span id="dr_${key}_luas">&mdash;</span></td>
+          <td class="selisih-cell"><span id="dr_${key}_sel_luas">&mdash;</span></td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderDokumenLegalitas() {
+      const tbody = document.getElementById('dokumen-legalitas-body');
+      if (!tbody) return;
+      tbody.innerHTML = DOKUMEN_LEGALITAS_ITEMS.map(({id, label}, i) => `
+        <tr>
+          <td style="text-align:center">${i+1}</td>
+          <td>${label}</td>
+          <td style="text-align:center">
+            <div class="radio-pair">
+              <label><input type="radio" name="dok_${id}_status" value="Ada"> Ada</label>
+              <label><input type="radio" name="dok_${id}_status" value="Tidak"> Tidak</label>
+            </div>
+          </td>
+          <td><input type="text" id="dok_${id}_ket" placeholder="Keterangan"></td>
+        </tr>`).join('');
+    }
+
+    function setSelisih(elId, std, val) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      if (std === null || std === undefined || val === null) { el.textContent = '—'; el.style.color = ''; return; }
+      const s = std - val;
+      el.textContent = (s > 0 ? '+' : '') + s.toFixed(2);
+      el.style.color = s > 0 ? 'var(--bad)' : s < 0 ? 'var(--good)' : 'var(--text-2)';
+    }
+
     function hitungDimensiGerai() {
-      const stdP = 20, stdL = 30, stdLuas = 600;
+      const stdP = 30, stdL = 20, stdLuas = 600;
       const relP = document.getElementById('rel_pjg').value !== '' ? parseFloat(document.getElementById('rel_pjg').value) : null;
       const relL = document.getElementById('rel_lbr').value !== '' ? parseFloat(document.getElementById('rel_lbr').value) : null;
-      function setSelisih(elId, std, val) {
-        const el = document.getElementById(elId);
-        if (val === null) { el.textContent = '—'; el.style.color = ''; return; }
-        const s = std - val;
-        el.textContent = (s > 0 ? '+' : '') + s.toFixed(2);
-        el.style.color = s > 0 ? 'var(--merah)' : s < 0 ? '#27ae60' : '#555';
-      }
       setSelisih('sel_pjg', stdP, relP); setSelisih('sel_lbr', stdL, relL);
       if (relP !== null && relL !== null) {
         const luas = relP * relL;
@@ -519,6 +760,25 @@
         document.getElementById('rel_luas').textContent = '—';
         document.getElementById('sel_luas').textContent = '—';
         document.getElementById('sel_luas').style.color = '';
+      }
+    }
+
+    function hitungDimensiRuangan(key) {
+      const room = DIMENSI_RUANGAN.find(r => r.key === key);
+      const pEl = document.getElementById(`dr_${key}_pjg`);
+      const lEl = document.getElementById(`dr_${key}_lbr`);
+      const relP = pEl.value !== '' ? parseFloat(pEl.value) : null;
+      const relL = lEl.value !== '' ? parseFloat(lEl.value) : null;
+      setSelisih(`dr_${key}_sel_pjg`, room.stdP, relP);
+      setSelisih(`dr_${key}_sel_lbr`, room.stdL, relL);
+      const luasEl = document.getElementById(`dr_${key}_luas`);
+      if (relP !== null && relL !== null) {
+        const luas = relP * relL;
+        luasEl.textContent = luas.toFixed(2);
+        setSelisih(`dr_${key}_sel_luas`, room.stdLuas, luas);
+      } else {
+        luasEl.textContent = '—';
+        setSelisih(`dr_${key}_sel_luas`, null, null);
       }
     }
 
@@ -549,10 +809,30 @@
         'Fisik_Atap': document.querySelector('input[name="fis_atap"]:checked')?.value || '',
         'Fisik_Pintu': document.querySelector('input[name="fis_pintu"]:checked')?.value || '',
         'Fisik_Jendela': document.querySelector('input[name="fis_jendela"]:checked')?.value || '',
+        ...Object.fromEntries(DIMENSI_RUANGAN.flatMap(({key}) => [
+          [`DimRuang_${key}_Panjang`, val(`dr_${key}_pjg`)],
+          [`DimRuang_${key}_Lebar`, val(`dr_${key}_lbr`)],
+          [`DimRuang_${key}_Luas`, document.getElementById(`dr_${key}_luas`)?.textContent.replace('—','') || ''],
+          [`DimRuang_${key}_Selisih_Panjang`, document.getElementById(`dr_${key}_sel_pjg`)?.textContent.replace('—','') || ''],
+          [`DimRuang_${key}_Selisih_Lebar`, document.getElementById(`dr_${key}_sel_lbr`)?.textContent.replace('—','') || ''],
+          [`DimRuang_${key}_Selisih_Luas`, document.getElementById(`dr_${key}_sel_luas`)?.textContent.replace('—','') || ''],
+        ])),
+        ...Object.fromEntries(KELENGKAPAN_FISIK_ITEMS.flatMap(({items}) => items).flatMap(({id}) => [
+          [`KlgFisik_${id}_Jumlah`, val(`klgfisik_${id}_jumlah`)],
+          [`KlgFisik_${id}_Kondisi`, document.querySelector(`input[name="klgfisik_${id}_kondisi"]:checked`)?.value || ''],
+          [`KlgFisik_${id}_Keterangan`, val(`klgfisik_${id}_ket`)],
+        ])),
         ...Object.fromEntries(
           KELENGKAPAN_ITEMS.flatMap(({items}) => items).map(({id}) => [`Klg_${id}_Jumlah`, val(`klg_${id}`)])
         ),
-        ...Object.fromEntries(KENDARAAN_ITEMS.map(({id}) => [`Knd_${id}_Jumlah`, val(`knd_${id}`)])),
+        ...Object.fromEntries(KENDARAAN_ITEMS.flatMap(({id}) => [
+          [`Knd_${id}_Jumlah`, val(`knd_${id}`)],
+          [`Knd_${id}_Operasional`, document.querySelector(`input[name="knd_${id}_operasional"]:checked`)?.value || ''],
+        ])),
+        ...Object.fromEntries(DOKUMEN_LEGALITAS_ITEMS.flatMap(({id}) => [
+          [`Dok_${id}_Status`, document.querySelector(`input[name="dok_${id}_status"]:checked`)?.value || ''],
+          [`Dok_${id}_Keterangan`, val(`dok_${id}_ket`)],
+        ])),
         'Catatan_Lapangan': val('f_catatan_lapangan'),
       };
     }
@@ -577,13 +857,27 @@
           ['Dinding', d['Fisik_Dinding']||'-'], ['Atap', d['Fisik_Atap']||'-'],
           ['Pintu', d['Fisik_Pintu']||'-'], ['Jendela / Kaca', d['Fisik_Jendela']||'-'],
         ]},
+        { title: 'Dimensi Ruangan', fields: DIMENSI_RUANGAN.map(({key, label}) => {
+          const p = d[`DimRuang_${key}_Panjang`], l = d[`DimRuang_${key}_Lebar`], luas = d[`DimRuang_${key}_Luas`];
+          return [label, p && l ? `${p} m \xd7 ${l} m = ${luas} m\xb2` : '-'];
+        })},
+        { title: 'Kelengkapan Fisik Gerai (Konstruksi)', fields: KELENGKAPAN_FISIK_ITEMS.flatMap(({items}) => items).map(({id, label}) => {
+          const jumlah = d[`KlgFisik_${id}_Jumlah`];
+          const kondisi = d[`KlgFisik_${id}_Kondisi`];
+          return [label, jumlah || kondisi ? `${jumlah || '-'}${kondisi ? ' / ' + kondisi : ''}` : '-'];
+        })},
         { title: 'Kelengkapan', fields: KELENGKAPAN_ITEMS.flatMap(({items}) => items).map(({id, label}) => {
           const jumlah = d[`Klg_${id}_Jumlah`];
           return [label, jumlah ? jumlah : '-'];
         })},
         { title: 'Kendaraan', fields: KENDARAAN_ITEMS.map(({id, label}) => {
           const jumlah = d[`Knd_${id}_Jumlah`];
-          return [label, jumlah ? jumlah : '-'];
+          const operasional = d[`Knd_${id}_Operasional`];
+          return [label, jumlah || operasional ? `${jumlah || '-'}${operasional ? ' (Operasional: ' + operasional + ')' : ''}` : '-'];
+        })},
+        { title: 'Dokumen & Legalitas', fields: DOKUMEN_LEGALITAS_ITEMS.map(({id, label}) => {
+          const status = d[`Dok_${id}_Status`];
+          return [label, status || '-'];
         })},
         { title: 'Catatan Lapangan', fields: [
           ['Catatan', d['Catatan_Lapangan']||'-'],
@@ -659,7 +953,7 @@
             body: g.fields.map(([label, value]) => [label, String(value)]),
             startY,
             styles: { fontSize: 9 },
-            headStyles: { fillColor: [45, 122, 60] },
+            headStyles: { fillColor: [59, 108, 255] },
             margin: { left: 14, right: 14 },
           });
           startY = doc.lastAutoTable.finalY + 8;
@@ -673,8 +967,11 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       renderProgressBar();
+      renderDimensiRuangan();
+      renderKelengkapanFisik();
       renderKelengkapan();
       renderKendaraan();
+      renderDokumenLegalitas();
     });
   </script>
   <script>
